@@ -19,7 +19,6 @@ SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
 	, mCheckVB(FALSE)
 	, mCheckCSharp(FALSE)
 	, mCheckCpp(FALSE)
-	, mGender(0)
 	, mValidParent(false)
 	, mMainFrame(nullptr)
 {
@@ -34,8 +33,6 @@ SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
 		mValidParent = false;
 		mMainFrame = nullptr;
 	}
-
-	mIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 SampleMFCDlg::~SampleMFCDlg()
@@ -53,7 +50,6 @@ void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_VB, mCheckVB);
 	DDX_Check(pDX, IDC_CHECK_CSHARP, mCheckCSharp);
 	DDX_Check(pDX, IDC_CHECK_CPP, mCheckCpp);
-	DDX_Radio(pDX, IDC_RADIO_MAN, mGender);
 }
 
 

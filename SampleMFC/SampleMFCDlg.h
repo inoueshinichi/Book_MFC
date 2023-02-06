@@ -33,8 +33,7 @@ public:
 	BOOL mCheckVB;
 	BOOL mCheckCSharp;
 	BOOL mCheckCpp;
-	HICON mIcon;
-	int mGender;
 	bool mValidParent;
 	class CMainFrame* mMainFrame;
+	
 };
