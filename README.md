@@ -1,6 +1,20 @@
-# Book_MFC
+# How to MFC & Book_MFC
 Visual C++  
 https://gihyo.jp/book/2022/978-4-297-13126-5  
+
+# 自作
+
+
+
+
+
+
+
+
+
+
+
+# Book
 
 1章　Visual C++ とは  
 1-01　Visual C++ とは  
