@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 
 #include "MainFrm.h"
+#include "ImageMFCDlg.h"
 
 
 // SampleMFCDlg ダイアログ
@@ -47,6 +48,24 @@ SampleMFCDlg::~SampleMFCDlg()
 	}
 }
 
+/*以下, 自作関数*/
+
+
+void SampleMFCDlg::AddDialog(class CDialogEx* dlg)
+{
+	mMFCDlgs.push_back(dlg);
+}
+
+void SampleMFCDlg::RemoveDialog(class CDialogEx* dlg)
+{
+	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
+	if (iter != mMFCDlgs.end())
+	{
+		std::iter_swap(iter, mMFCDlgs.end() - 1);
+		mMFCDlgs.pop_back();
+	}
+}
+
 void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
@@ -70,6 +89,7 @@ BEGIN_MESSAGE_MAP(SampleMFCDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO_WOMAN, &SampleMFCDlg::OnBnClickedRadioWoman)
 	ON_BN_CLICKED(IDC_BUTTON_FILE, &SampleMFCDlg::OnBnClickedButtonFile)
 	ON_BN_CLICKED(IDC_BUTTON_DATETIME, &SampleMFCDlg::OnBnClickedButtonDatetime)
+	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &SampleMFCDlg::OnBnClickedButtonImage)
 END_MESSAGE_MAP()
 
 
@@ -81,6 +101,8 @@ BOOL SampleMFCDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
+
+	
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 例外 : OCX プロパティ ページは必ず FALSE を返します。
@@ -357,4 +379,15 @@ void SampleMFCDlg::OnBnClickedButtonDatetime()
 	{
 		_tprintf(_T("時刻は解析できなかった\n"));
 	}
+}
+
+
+void SampleMFCDlg::OnBnClickedButtonImage()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
+	/*ImageMFCDlgの生成*/
+	ImageMFCDlg* mImageDlg = new ImageMFCDlg(this);
+	mImageDlg->Create(IDD_ImageMFCDlg);
+	mImageDlg->ShowWindow(SW_SHOW);
 }

@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <vector>
 
 // SampleMFCDlg ダイアログ
 
@@ -21,6 +22,21 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	bool mValidParent;
+	class CMainFrame* mMainFrame;
+	std::vector<class CDialogEx*> mMFCDlgs;
+
+	void AddDialog(class CDialogEx* dlg);
+	void RemoveDialog(class CDialogEx* dlg);
+
+	HICON mhIcon;
+	CString mEditString;
+	BOOL mCheckVB;
+	BOOL mCheckCSharp;
+	BOOL mCheckCpp;
+	BOOL mRadioMan;
+	BOOL mRadioWoman;
+
 	virtual BOOL OnInitDialog();
 	virtual void PostNcDestroy();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
@@ -29,18 +45,9 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonPaint();
 	afx_msg void OnBnClickedButtonApply();
-	HICON mhIcon;
-	CString mEditString;
-	BOOL mCheckVB;
-	BOOL mCheckCSharp;
-	BOOL mCheckCpp;
-	bool mValidParent;
-	class CMainFrame* mMainFrame;
-	
-	BOOL mRadioMan;
-	BOOL mRadioWoman;
 	afx_msg void OnBnClickedRadioMan();
 	afx_msg void OnBnClickedRadioWoman();
 	afx_msg void OnBnClickedButtonFile();
 	afx_msg void OnBnClickedButtonDatetime();
+	afx_msg void OnBnClickedButtonImage();
 };
