@@ -9,6 +9,7 @@
 #include "MainFrm.h"
 
 #include "SampleMFCDlg.h"
+#include "CmnCtrlMFCDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -146,6 +147,11 @@ void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus)
 	SampleMFCDlg* mSampleDlg = new SampleMFCDlg(this);
 	mSampleDlg->Create(IDD_SampleMFCDlg);
 	mSampleDlg->ShowWindow(SW_SHOW);
+
+	/*CmnCtrlDlgの生成*/
+	CmnCtrlMFCDlg* mCmnCtrlDlg = new CmnCtrlMFCDlg(this);
+	mCmnCtrlDlg->Create(IDD_CmnCtrlMFCDlg);
+	mCmnCtrlDlg->ShowWindow(SW_SHOW);
 }
 
 /*以下, 自作関数*/
