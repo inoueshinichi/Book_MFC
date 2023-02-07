@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Win32Console.h"
+
 #include <vector>
 
 class CMainFrame : public CFrameWnd
@@ -16,6 +18,7 @@ protected: // シリアル化からのみ作成します。
 // 属性
 public:
 	std::vector<class CDialogEx*> mMFCDlgs;
+	is::common::win32::Win32Console mConsole;
 
 // 操作
 public:
