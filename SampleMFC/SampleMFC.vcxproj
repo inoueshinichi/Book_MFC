@@ -208,6 +208,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="ImageMFCDlg.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -216,8 +217,12 @@
     <ClInclude Include="SampleMFCDoc.h" />
     <ClInclude Include="SampleMFCView.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Win32APIError.h" />
+    <ClInclude Include="Win32Console.h" />
+    <ClInclude Include="Win32Defs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImageMFCDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -229,6 +234,7 @@
     <ClCompile Include="SampleMFCDlg.cpp" />
     <ClCompile Include="SampleMFCDoc.cpp" />
     <ClCompile Include="SampleMFCView.cpp" />
+    <ClCompile Include="Win32Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SampleMFC.rc" />
