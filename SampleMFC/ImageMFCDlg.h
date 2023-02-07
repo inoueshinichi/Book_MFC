@@ -21,6 +21,11 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	bool mValidParent;
+	class SampleMFCDlg* mSampleDlg;
+
+	CImage mImage;
+
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual BOOL OnInitDialog();
