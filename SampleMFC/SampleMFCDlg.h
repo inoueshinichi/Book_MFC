@@ -29,6 +29,7 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonPaint();
 	afx_msg void OnBnClickedButtonApply();
+	HICON mhIcon;
 	CString mEditString;
 	BOOL mCheckVB;
 	BOOL mCheckCSharp;
@@ -36,4 +37,10 @@ public:
 	bool mValidParent;
 	class CMainFrame* mMainFrame;
 	
+	BOOL mRadioMan;
+	BOOL mRadioWoman;
+	afx_msg void OnBnClickedRadioMan();
+	afx_msg void OnBnClickedRadioWoman();
+	afx_msg void OnBnClickedButtonFile();
+	afx_msg void OnBnClickedButtonDatetime();
 };

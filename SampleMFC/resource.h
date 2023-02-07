@@ -8,6 +8,7 @@
 #define IDR_SampleMFCTYPE               130
 #define IDS_CLOSE                       195
 #define IDD_SampleMFCDlg                310
+#define IDD_ImageMFCDlg                 311
 #define IDC_EDIT1                       1000
 #define IDC_BUTTON1                     1001
 #define IDC_BUTTON_PAINT                1002
@@ -20,6 +21,8 @@
 #define IDC_LIST                        1009
 #define IDC_BUTTON3                     1010
 #define IDC_BUTTON_APPLY                1010
+#define IDC_BUTTON_FILE                 1011
+#define IDC_BUTTON_DATETIME             1012
 
 // Next default values for new objects
 // 
@@ -27,7 +30,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1011
-#define _APS_NEXT_SYMED_VALUE           311
+#define _APS_NEXT_CONTROL_VALUE         1013
+#define _APS_NEXT_SYMED_VALUE           312
 #endif
 #endif
