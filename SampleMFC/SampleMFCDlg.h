@@ -36,6 +36,10 @@ public:
 	BOOL mCheckCpp;
 	BOOL mRadioMan;
 	BOOL mRadioWoman;
+	CComboBox mComboBoxCtrl;
+	CListBox mListBoxCtrl;
+	CSpinButtonCtrl mSpinButtonCtrl;
+	CSliderCtrl mSliderCtrl;
 
 	virtual BOOL OnInitDialog();
 	virtual void PostNcDestroy();
@@ -50,4 +54,7 @@ public:
 	afx_msg void OnBnClickedButtonFile();
 	afx_msg void OnBnClickedButtonDatetime();
 	afx_msg void OnBnClickedButtonImage();
+	
+	
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

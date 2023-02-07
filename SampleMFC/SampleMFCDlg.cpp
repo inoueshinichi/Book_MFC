@@ -75,6 +75,10 @@ void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_CPP, mCheckCpp);
 	DDX_Radio(pDX, IDC_RADIO_MAN, mRadioMan);
 	DDX_Radio(pDX, IDC_RADIO_WOMAN, mRadioWoman);
+	DDX_Control(pDX, IDC_COMBO, mComboBoxCtrl);
+	DDX_Control(pDX, IDC_LIST, mListBoxCtrl);
+	DDX_Control(pDX, IDC_SPIN, mSpinButtonCtrl);
+	DDX_Control(pDX, IDC_SLIDER, mSliderCtrl);
 }
 
 
@@ -90,6 +94,7 @@ BEGIN_MESSAGE_MAP(SampleMFCDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_FILE, &SampleMFCDlg::OnBnClickedButtonFile)
 	ON_BN_CLICKED(IDC_BUTTON_DATETIME, &SampleMFCDlg::OnBnClickedButtonDatetime)
 	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &SampleMFCDlg::OnBnClickedButtonImage)
+	ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -101,6 +106,22 @@ BOOL SampleMFCDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
+
+	// コンボボックスに格納
+	mComboBoxCtrl.AddString(_T("Man"));
+	mComboBoxCtrl.AddString(_T("Woman"));
+	mComboBoxCtrl.SetCurSel(0);
+
+	// リストボックスに格納
+	mListBoxCtrl.AddString(_T("Visual Basic"));
+	mListBoxCtrl.AddString(_T("Visual C#"));
+	mListBoxCtrl.AddString(_T("Visual C++"));
+
+	// スピンコントロールの設定
+	mSpinButtonCtrl.SetRange(0, 100);
+
+	// スライダーコントロールの設定
+	mSliderCtrl.SetRange(0, 100);
 
 	
 
@@ -226,7 +247,27 @@ void SampleMFCDlg::OnBnClickedButtonApply()
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 	UpdateData(true);
 
+	CString showMessage;
+
 	CString genderStr;
+	int comboIndex = mComboBoxCtrl.GetCurSel();
+	mComboBoxCtrl.GetLBText(comboIndex, genderStr);
+
+	CString languageStr;
+	CString selectedStr;
+	for (int i = 0; i < mListBoxCtrl.GetCount(); ++i)
+	{
+		if (mListBoxCtrl.GetSel(i))
+		{
+			mListBoxCtrl.GetText(i, selectedStr);
+			languageStr += selectedStr + _T(" ");
+		}
+	}
+
+	showMessage = genderStr + languageStr;
+	AfxMessageBox(showMessage);
+
+	
 	if (mRadioMan == true && mRadioWoman == false)
 	{
 		genderStr = _T("男性");
@@ -236,7 +277,7 @@ void SampleMFCDlg::OnBnClickedButtonApply()
 		genderStr = _T("女性");
 	}
 
-	CString languageStr;
+	
 	if (mCheckVB)
 	{
 		languageStr += "Visual Basic ";
@@ -250,7 +291,7 @@ void SampleMFCDlg::OnBnClickedButtonApply()
 		languageStr += "Visual C++ ";
 	}
 
-	CString showMessage;
+	
 	showMessage = _T("性別は") + genderStr + _T("です。\n");
 	if (languageStr.IsEmpty())
 	{
@@ -390,4 +431,19 @@ void SampleMFCDlg::OnBnClickedButtonImage()
 	ImageMFCDlg* mImageDlg = new ImageMFCDlg(this);
 	mImageDlg->Create(IDD_ImageMFCDlg);
 	mImageDlg->ShowWindow(SW_SHOW);
+}
+
+
+void SampleMFCDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: ここにメッセージ ハンドラー コードを追加するか、既定の処理を呼び出します。
+
+	// スライダーバーでスピンボタンを動かす
+	if (*pScrollBar == mSliderCtrl)
+	{
+		mSpinButtonCtrl.SetPos32(mSliderCtrl.GetPos());
+		_tprintf(_T("SliderBar: %d\n"), mSliderCtrl.GetPos());
+	}
+
+	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
