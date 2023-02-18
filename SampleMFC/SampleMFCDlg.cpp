@@ -9,6 +9,9 @@
 #include "MainFrm.h"
 #include "ImageMFCDlg.h"
 
+#include <iostream>
+#include <sstream>
+
 
 // SampleMFCDlg ダイアログ
 
@@ -233,6 +236,16 @@ void SampleMFCDlg::OnBnClickedButton1()
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 	UpdateData(true);
 	AfxMessageBox(mEditString);
+
+	/*文字列の処理*/
+	CString myStr( _T("I like "));
+	myStr.Insert(myStr.GetLength(), _T("Neko"));
+	std::wcout << myStr.GetString() << std::endl;
+	myStr.Delete(0, 1);
+	myStr = CString(_T("You")) + myStr;
+	std::wcout << myStr.GetString() << std::endl;
+	std::wcout << CString(_T("Byte length :")).GetString() << myStr.GetLength() * sizeof(TCHAR) << std::endl;
+
 }
 
 
@@ -369,12 +382,62 @@ void SampleMFCDlg::OnBnClickedButtonFile()
 	// リネーム
 	CString newFilePath = relPath + _T("sample_new.txt");
 	CFile::Rename(filePath, newFilePath);
-	// 削除
-	CFile::Remove(newFilePath);
 
 	// ファイル情報
 	CFileStatus fileStatus;
 	bool isFileExist = CFile::GetStatus(newFilePath, fileStatus);
+	CTime ctime = fileStatus.m_ctime; // ファイル作成時刻
+	CTime mtime = fileStatus.m_mtime; // 最終更新時刻
+	CTime atime = fileStatus.m_atime; // 最終アクセス時刻
+	ULONGLONG bytes = fileStatus.m_size; // ファイルサイズ
+	DWORD fileAttrib = fileStatus.m_attribute;
+	CString filePathName(fileStatus.m_szFullName); // ファイルパス
+	std::wcout << ctime.Format(_T("CreateTime %Y/%m/%d %H:%M:%S %A %d. %B %Y")).GetString() << std::endl;
+	std::wcout << mtime.Format(_T("LastModTime %Y/%m/%d %H:%M:%S %A %d. %B %Y")).GetString() << std::endl;
+	std::wcout << atime.Format(_T("LastAccessTime %Y/%m/%d %H:%M:%S %A %d. %B %Y")).GetString() << std::endl;
+	CString fileSize; fileSize.Format(_T("File Bytes %lu"), bytes);
+	std::wcout << fileSize.GetString() << std::endl;
+	std::wcout << filePathName.GetString() << std::endl;
+
+	std::wostringstream woss;
+	switch (fileAttrib)
+	{
+	case CFile::Attribute::normal:
+		woss << _T("通常ファイル");
+		break;
+	case CFile::Attribute::readOnly:
+		woss << _T("読み取り専用ファイル");
+		break;
+	case CFile::Attribute::hidden:
+		woss << _T("隠しファイル");
+		break;
+	case CFile::Attribute::system:
+		woss << _T("システムファイル");
+		break;
+	case CFile::Attribute::volume:
+		woss << _T("マウントファイル");
+		break;
+	case CFile::Attribute::directory:
+		woss << _T("ディレクトリ");
+		break;
+	case CFile::Attribute::archive:
+		woss << _T("アーカイブファイル");
+		break;
+	default:
+	{
+
+	}
+	}
+	std::wcout << woss.str() << std::endl;
+
+
+
+	// 削除
+	CFile::Remove(newFilePath);
+
+	// ファイル情報
+	isFileExist = CFile::GetStatus(newFilePath, fileStatus);
+	
 
 	if (isFileExist)
 	{
