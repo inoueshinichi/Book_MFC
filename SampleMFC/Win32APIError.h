@@ -16,7 +16,8 @@ namespace is
             inline CString win32_api_error()
             {
                 DWORD error_code = ::GetLastError();
-                LPVOID lpMsgBuff; // エラーメッセージ用バッファポインタ
+                TCHAR tszMsgBuff[1024];
+                DWORD dwChars; // Number of chars returns;
 
                 /**
                  * DWORD FormatMessage(
@@ -29,18 +30,44 @@ namespace is
                  *  va_list* Arguments  // 複数のメッセージ挿入シーケンスからなる配列
                  * )
                  */
-                ::FormatMessage(
-                    FORMAT_MESSAGE_ALLOCATE_BUFFER |   // テキストのメモリ割り当てを要求
-                    FORMAT_MESSAGE_FROM_SYSTEM |   // エラーメッセージはWindowsが用意しているものを使用
-                    FORMAT_MESSAGE_IGNORE_INSERTS, // 次の引数を無視してエラーコードに対するエラーメッセージを作成する
-                    NULL,
-                    error_code,
-                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // 言語(日本語)を設定
-                    (LPTSTR)&lpMsgBuff,                        // メッセージテキストが保存されるバッファへのポインタ
-                    0,
-                    NULL);
+                dwChars = ::FormatMessage(
+                            FORMAT_MESSAGE_ALLOCATE_BUFFER | // テキストのメモリ割り当てを要求
+                            FORMAT_MESSAGE_FROM_SYSTEM |   // エラーメッセージはWindowsが用意しているものを使用
+                            FORMAT_MESSAGE_IGNORE_INSERTS, // 次の引数を無視してエラーコードに対するエラーメッセージを作成する
+                            NULL,
+                            error_code,
+                            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // 言語(日本語)を設定
+                            tszMsgBuff,  // メッセージテキストが保存されるバッファへのポインタ
+                            1024,
+                            NULL);
 
-                CString win32_msg((LPCTSTR)lpMsgBuff);
+                if (dwChars == 0)
+                {
+                    // The error code did not exist in the system errors.
+                    // Try Ntdsbmsg.dll for the error code.
+                    HINSTANCE hInstance;
+
+                    // Load the library.
+                    hInstance = LoadLibrary(_T("Ntdsbmsg.dll"));
+                    if (hInstance == NULL)
+                    {
+                        _tprintf(_T("Can not load Ntdsbmsg.dll\n"));
+                        std::abort();
+                    }
+
+                    dwChars = ::FormatMessage(
+                                    FORMAT_MESSAGE_ALLOCATE_BUFFER |
+                                    FORMAT_MESSAGE_FROM_SYSTEM |
+                                    FORMAT_MESSAGE_IGNORE_INSERTS,
+                                    NULL,
+                                    error_code,
+                                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // 言語(日本語)を設定
+                                    tszMsgBuff,
+                                    1024,
+                                    NULL);
+                }
+
+                CString win32_msg(tszMsgBuff);
                 return win32_msg;
             }
         }
