@@ -57,4 +57,5 @@ public:
 	
 	
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnEnUpdateEditSpin();
 };

@@ -98,6 +98,7 @@ BEGIN_MESSAGE_MAP(SampleMFCDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_DATETIME, &SampleMFCDlg::OnBnClickedButtonDatetime)
 	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &SampleMFCDlg::OnBnClickedButtonImage)
 	ON_WM_HSCROLL()
+	ON_EN_UPDATE(IDC_EDIT_SPIN, &SampleMFCDlg::OnEnUpdateEditSpin)
 END_MESSAGE_MAP()
 
 
@@ -504,9 +505,25 @@ void SampleMFCDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	// スライダーバーでスピンボタンを動かす
 	if (*pScrollBar == mSliderCtrl)
 	{
-		mSpinButtonCtrl.SetPos32(mSliderCtrl.GetPos());
+		mSpinButtonCtrl.SetPos(mSliderCtrl.GetPos());
 		_tprintf(_T("SliderBar: %d\n"), mSliderCtrl.GetPos());
 	}
 
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
+}
+
+
+void SampleMFCDlg::OnEnUpdateEditSpin()
+{
+	// TODO: これが RICHEDIT コントロールの場合、このコントロールが
+	// この通知を送信するには、CDialogEx::OnInitDialog() 関数をオーバーライドし、
+	// EM_SETEVENTMASK メッセージを、
+	// OR 状態の ENM_UPDATE フラグを lParam マスクに入れて、このコントロールに送信する必要があります。
+
+	// TODO: ここにコントロール通知ハンドラー コードを追加してください。
+
+	if (mSpinButtonCtrl.m_hWnd != NULL)
+	{
+		mSliderCtrl.SetPos(mSpinButtonCtrl.GetPos());
+	}
 }
