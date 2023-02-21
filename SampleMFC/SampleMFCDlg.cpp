@@ -15,69 +15,24 @@
 
 // SampleMFCDlg ダイアログ
 
-IMPLEMENT_DYNAMIC(SampleMFCDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(SampleMFCDlg, BaseMFCDialog)
 
 SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_SampleMFCDlg, pParent)
+	: BaseMFCDialog(IDD_SampleMFCDlg, pParent)
 	, mEditString(_T(""))
 	, mCheckVB(FALSE)
 	, mCheckCSharp(FALSE)
 	, mCheckCpp(FALSE)
-	, mValidParent(false)
-	, mDeleteThisOnNcDestroy(true)
-	, mMainFrame(nullptr)
-	//, mRadioMan(FALSE)
-	//, mRadioWoman(FALSE)
 	, mRadioGender(0)
 {
-	if (dynamic_cast<CMainFrame*>(pParent))
-	{
-		mValidParent = true;
-		mMainFrame = dynamic_cast<CMainFrame*>(pParent);
-		mMainFrame->AddDialog(this);
-	}
-	else
-	{
-		mValidParent = false;
-		mMainFrame = nullptr;
-	}
-
 	mhIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 SampleMFCDlg::~SampleMFCDlg()
 {
-	while (!mMFCDlgs.empty())
-	{
-		delete mMFCDlgs.back();
-	}
-
-	if (mValidParent && !mDeleteThisOnNcDestroy)
-	{
-		mMainFrame->RemoveDialog(this);
-	}
-}
-
-/*以下, 自作関数*/
-
-
-void SampleMFCDlg::AddDialog(class CDialogEx* dlg)
-{
-	mMFCDlgs.push_back(dlg);
-	_tprintf(_T("Add SampleMFCDlg mMFCDlgs size: %d\n"), mMFCDlgs.size());
 
 }
 
-void SampleMFCDlg::RemoveDialog(class CDialogEx* dlg)
-{
-	_tprintf(_T("Remove SampleMFCDlg mMFCDlgs size: %d\n"), mMFCDlgs.size());
-	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
-	if (iter != mMFCDlgs.end())
-	{
-		std::iter_swap(iter, mMFCDlgs.end() - 1);
-		mMFCDlgs.pop_back();
-	}
-}
 
 void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -86,8 +41,6 @@ void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_VB, mCheckVB);
 	DDX_Check(pDX, IDC_CHECK_CSHARP, mCheckCSharp);
 	DDX_Check(pDX, IDC_CHECK_CPP, mCheckCpp);
-	//DDX_Radio(pDX, IDC_RADIO_MAN, mRadioMan);
-	//DDX_Radio(pDX, IDC_RADIO_WOMAN, mRadioWoman);
 	DDX_Control(pDX, IDC_COMBO, mComboBoxCtrl);
 	DDX_Control(pDX, IDC_LIST, mListBoxCtrl);
 	DDX_Control(pDX, IDC_SPIN, mSpinButtonCtrl);
@@ -96,15 +49,13 @@ void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(SampleMFCDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(SampleMFCDlg, BaseMFCDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &SampleMFCDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON_PAINT, &SampleMFCDlg::OnBnClickedButtonPaint)
 	ON_BN_CLICKED(IDC_BUTTON_APPLY, &SampleMFCDlg::OnBnClickedButtonApply)
-	//ON_BN_CLICKED(IDC_RADIO_MAN, &SampleMFCDlg::OnBnClickedRadioMan)
-	//ON_BN_CLICKED(IDC_RADIO_WOMAN, &SampleMFCDlg::OnBnClickedRadioWoman)
 	ON_BN_CLICKED(IDC_BUTTON_FILE, &SampleMFCDlg::OnBnClickedButtonFile)
 	ON_BN_CLICKED(IDC_BUTTON_DATETIME, &SampleMFCDlg::OnBnClickedButtonDatetime)
 	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &SampleMFCDlg::OnBnClickedButtonImage)
@@ -119,7 +70,7 @@ END_MESSAGE_MAP()
 
 BOOL SampleMFCDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	BaseMFCDialog::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
 
@@ -145,20 +96,6 @@ BOOL SampleMFCDlg::OnInitDialog()
 				  // 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
 
-
-void SampleMFCDlg::PostNcDestroy()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	// UI消滅時に所属するオブジェクト(自身)を消す.
-	if (mValidParent && mDeleteThisOnNcDestroy)
-	{
-		mMainFrame->RemoveDialog(this);
-		delete this;
-	}
-
-	CDialogEx::PostNcDestroy();
-}
 
 
 void SampleMFCDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -244,7 +181,7 @@ HCURSOR SampleMFCDlg::OnQueryDragIcon()
 {
 	// TODO: ここにメッセージ ハンドラー コードを追加するか、既定の処理を呼び出します。
 
-	return CDialogEx::OnQueryDragIcon();
+	return BaseMFCDialog::OnQueryDragIcon();
 }
 
 

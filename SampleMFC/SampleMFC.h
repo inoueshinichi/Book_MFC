@@ -9,6 +9,7 @@
 
 #include "resource.h"       // メイン シンボル
 
+#include "Win32Console.h"
 
 // CSampleMFCApp:
 // このクラスの実装については、SampleMFC.cpp を参照してください
@@ -22,6 +23,7 @@ public:
 protected:
 	CMultiDocTemplate* m_pDocTemplate;
 public:
+	is::common::win32::Win32Console mConsole;
 
 // オーバーライド
 public:

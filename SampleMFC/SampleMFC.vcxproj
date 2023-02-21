@@ -207,6 +207,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMFCDialog.h" />
     <ClInclude Include="CmnCtrlMFCDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ImageMFCDlg.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Win32Defs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseMFCDialog.cpp" />
     <ClCompile Include="CmnCtrlMFCDlg.cpp" />
     <ClCompile Include="ImageMFCDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />

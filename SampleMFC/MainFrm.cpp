@@ -11,6 +11,8 @@
 #include "SampleMFCDlg.h"
 #include "CmnCtrlMFCDlg.h"
 
+#include "BaseMFCDialog.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -42,9 +44,19 @@ CMainFrame::CMainFrame() noexcept
 
 CMainFrame::~CMainFrame()
 {
-	while (!mMFCDlgs.empty())
+	for (auto ptr : mMFCDlgs)
 	{
-		delete mMFCDlgs.back();
+		if (!ptr->IsDeleteThisOnNcDestroy())
+		{
+			delete ptr;
+			ptr = nullptr;
+		}
+		else
+		{
+			// PosNcDestroy()で消える子ダイアログには
+			// 親が無効になることを事前通知
+			ptr->SetValidParent(false);
+		}
 	}
 }
 
@@ -160,22 +172,23 @@ void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus)
 /*以下, 自作関数*/
 
 
-void CMainFrame::AddDialog(class CDialogEx* dlg)
+void CMainFrame::AddDialog(BaseMFCDialog* dlg)
 {
+	_tprintf(_T("Add CMainFrame Before mMFCDlgs size: %d\n"), mMFCDlgs.size());
 	mMFCDlgs.push_back(dlg);
-	_tprintf(_T("Add CMainFrame mMFCDlgs size: %d\n"), mMFCDlgs.size());
-
+	_tprintf(_T("Add CMainFrame After mMFCDlgs size: %d\n"), mMFCDlgs.size());
 }
 
-void CMainFrame::RemoveDialog(class CDialogEx* dlg)
+void CMainFrame::RemoveDialog(BaseMFCDialog* dlg)
 {
-	_tprintf(_T("Remove CMainFrame mMFCDlgs size: %d\n"), mMFCDlgs.size());
+	_tprintf(_T("Remove CMainFrame Before mMFCDlgs size: %d\n"), mMFCDlgs.size());
 	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
 	if (iter != mMFCDlgs.end())
 	{
 		std::iter_swap(iter, mMFCDlgs.end() - 1);
 		mMFCDlgs.pop_back();
 	}
+	_tprintf(_T("Remove CMainFrame After mMFCDlgs size: %d\n"), mMFCDlgs.size());
 }
 
 

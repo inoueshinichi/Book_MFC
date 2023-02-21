@@ -1,10 +1,9 @@
 ﻿#pragma once
-
-#include <vector>
+#include "BaseMFCDialog.h"
 
 // SampleMFCDlg ダイアログ
 
-class SampleMFCDlg : public CDialogEx
+class SampleMFCDlg : public BaseMFCDialog
 {
 	DECLARE_DYNAMIC(SampleMFCDlg)
 
@@ -22,21 +21,11 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	bool mDeleteThisOnNcDestroy;
-	bool mValidParent;
-	class CMainFrame* mMainFrame;
-	std::vector<class CDialogEx*> mMFCDlgs;
-
-	void AddDialog(class CDialogEx* dlg);
-	void RemoveDialog(class CDialogEx* dlg);
-
 	HICON mhIcon;
 	CString mEditString;
 	BOOL mCheckVB;
 	BOOL mCheckCSharp;
 	BOOL mCheckCpp;
-	//BOOL mRadioMan;
-	//BOOL mRadioWoman;
 	int mRadioGender;
 	CComboBox mComboBoxCtrl;
 	CListBox mListBoxCtrl;
@@ -44,15 +33,13 @@ public:
 	CSliderCtrl mSliderCtrl;
 
 	virtual BOOL OnInitDialog();
-	virtual void PostNcDestroy();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonPaint();
 	afx_msg void OnBnClickedButtonApply();
-	/*afx_msg void OnBnClickedRadioMan();
-	afx_msg void OnBnClickedRadioWoman();*/
+	
 	afx_msg void OnBnClickedButtonFile();
 	afx_msg void OnBnClickedButtonDatetime();
 	afx_msg void OnBnClickedButtonImage();

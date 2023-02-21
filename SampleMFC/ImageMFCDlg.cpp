@@ -10,27 +10,13 @@
 
 // ImageMFCDlg ダイアログ
 
-IMPLEMENT_DYNAMIC(ImageMFCDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(ImageMFCDlg, BaseMFCDialog)
 
 ImageMFCDlg::ImageMFCDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_ImageMFCDlg, pParent)
-	, mValidParent(false)
+	: BaseMFCDialog(IDD_ImageMFCDlg, pParent)
 	, mSampleDlg(nullptr)
-	, mDeleteThisOnNcDestroy(true)
 	, mDynamicLayout(nullptr)
 {
-	if (dynamic_cast<SampleMFCDlg*>(pParent))
-	{
-		mValidParent = true;
-		mSampleDlg = dynamic_cast<SampleMFCDlg*>(pParent);
-		mSampleDlg->AddDialog(this);
-	}
-	else
-	{
-		mValidParent = false;
-		mSampleDlg = nullptr;
-	}
-
 	// 動的レイアウトの設定
 	// https://learn.microsoft.com/ja-jp/cpp/mfc/dynamic-layout?view=msvc-170
 
@@ -43,11 +29,6 @@ ImageMFCDlg::ImageMFCDlg(CWnd* pParent /*=nullptr*/)
 
 ImageMFCDlg::~ImageMFCDlg()
 {
-	if (mValidParent && !mDeleteThisOnNcDestroy)
-	{
-		mSampleDlg->RemoveDialog(this);
-	}
-
 	if (mDynamicLayout)
 	{
 		delete mDynamicLayout;
@@ -56,11 +37,11 @@ ImageMFCDlg::~ImageMFCDlg()
 
 void ImageMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	BaseMFCDialog::DoDataExchange(pDX);
 }
 
 
-BEGIN_MESSAGE_MAP(ImageMFCDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(ImageMFCDlg, BaseMFCDialog)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
 	ON_WM_CREATE()
@@ -90,14 +71,14 @@ void ImageMFCDlg::OnSize(UINT nType, int cx, int cy)
 	// TODO: ここにメッセージ ハンドラー コードを追加します。
 
 
-	CWnd::Invalidate();
-	CWnd::UpdateWindow(); // notify OnPaint()
+	Invalidate();
+	UpdateWindow(); // notify OnPaint()
 }
 
 
 BOOL ImageMFCDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	BaseMFCDialog::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
 
@@ -135,39 +116,6 @@ BOOL ImageMFCDlg::OnInitDialog()
 				  // 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
 
-
-void ImageMFCDlg::PostNcDestroy()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	// UI消滅時に所属するオブジェクト(自身)を消す.
-	if (mValidParent && mDeleteThisOnNcDestroy)
-	{
-		mSampleDlg->RemoveDialog(this);
-		delete this;
-	}
-	
-
-	CDialogEx::PostNcDestroy();
-}
-
-
-void ImageMFCDlg::OnOK()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	Default(); // なにもしない
-	//CDialogEx::OnOK();
-}
-
-
-void ImageMFCDlg::OnCancel()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	DestroyWindow(); // 自身のウィンドウを破棄
-	//CDialogEx::OnCancel();
-}
 
 
 int ImageMFCDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)

@@ -12,27 +12,12 @@
 
 // CmnCtrlMFCDlg ダイアログ
 
-IMPLEMENT_DYNAMIC(CmnCtrlMFCDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CmnCtrlMFCDlg, BaseMFCDialog)
 
 CmnCtrlMFCDlg::CmnCtrlMFCDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_CmnCtrlMFCDlg, pParent)
-	, mValidParent(false)
-	, mDeleteThisOnNcDestroy(true)
-	, mMainFrame(nullptr)
+	: BaseMFCDialog(IDD_CmnCtrlMFCDlg, pParent)
 	, mTimerID(0)
 {
-	if (dynamic_cast<CMainFrame*>(pParent))
-	{
-		mValidParent = true;
-		mMainFrame = dynamic_cast<CMainFrame*>(pParent);
-		mMainFrame->AddDialog(this);
-	}
-	else
-	{
-		mValidParent = false;
-		mMainFrame = nullptr;
-	}
-
 	// 現在時刻を取得
 	//mDate = COleDateTime::GetCurrentTime();
 	//mTime = COleDateTime::GetCurrentTIme();
@@ -40,22 +25,18 @@ CmnCtrlMFCDlg::CmnCtrlMFCDlg(CWnd* pParent /*=nullptr*/)
 
 CmnCtrlMFCDlg::~CmnCtrlMFCDlg()
 {
-	if (mValidParent && !mDeleteThisOnNcDestroy)
-	{
-		mMainFrame->RemoveDialog(this);
-	}
 }
 
 void CmnCtrlMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	BaseMFCDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_TIMER, mButtonProgressBar);
 	DDX_Control(pDX, IDC_PROGRESS, mProgressCtrl);
 	DDX_Control(pDX, IDC_IPADDRESS, mIPAddressCtrl);
 }
 
 
-BEGIN_MESSAGE_MAP(CmnCtrlMFCDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CmnCtrlMFCDlg, BaseMFCDialog)
 	ON_WM_CREATE()
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BUTTON_SHOW_DATETIME, &CmnCtrlMFCDlg::OnBnClickedButtonShowDatetime)
@@ -70,7 +51,7 @@ END_MESSAGE_MAP()
 
 BOOL CmnCtrlMFCDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	BaseMFCDialog::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
 
@@ -87,39 +68,6 @@ BOOL CmnCtrlMFCDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 例外 : OCX プロパティ ページは必ず FALSE を返します。
-}
-
-void CmnCtrlMFCDlg::PostNcDestroy()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	// UI消滅時に所属するオブジェクト(自身)を消す.
-	if (mValidParent && mDeleteThisOnNcDestroy)
-	{
-		mMainFrame->RemoveDialog(this);
-		delete this;
-	}
-	
-
-	CDialogEx::PostNcDestroy();
-}
-
-
-void CmnCtrlMFCDlg::OnOK()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	Default();  // Enterキーを押しても何もしない
-	//CDialogEx::OnOK();
-}
-
-
-void CmnCtrlMFCDlg::OnCancel()
-{
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-
-	DestroyWindow(); // 自身のウィンドウを破棄
-	//CDialogEx::OnCancel();
 }
 
 
