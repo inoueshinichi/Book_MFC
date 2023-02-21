@@ -49,6 +49,8 @@ void CmnCtrlMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_TIMER, mButtonProgressBar);
+	DDX_Control(pDX, IDC_PROGRESS, mProgressCtrl);
+	DDX_Control(pDX, IDC_IPADDRESS, mIPAddressCtrl);
 }
 
 
@@ -77,6 +79,7 @@ BOOL CmnCtrlMFCDlg::OnInitDialog()
 
 	// プログレスバーの設定
 	mProgressCtrl.SetRange32(0, 100);
+	//mProgressCtrl.SetRange(0, 100);
 
 	// IPアドレスの設定
 	mIPAddressCtrl.SetAddress((BYTE)192, (BYTE)168, (BYTE)11, (BYTE)20);
@@ -170,7 +173,7 @@ void CmnCtrlMFCDlg::OnBnClickedButtonTimer()
 		if (text == _T("Start Timer"))
 		{
 			mTimerID = 1;
-			SetTimer(mTimerID, 1000, NULL);
+			SetTimer(mTimerID, 500, NULL);
 			mButtonProgressBar.SetWindowText(_T("Stop Timer"));
 		}
 		else

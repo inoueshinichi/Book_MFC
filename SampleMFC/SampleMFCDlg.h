@@ -34,8 +34,9 @@ public:
 	BOOL mCheckVB;
 	BOOL mCheckCSharp;
 	BOOL mCheckCpp;
-	BOOL mRadioMan;
-	BOOL mRadioWoman;
+	//BOOL mRadioMan;
+	//BOOL mRadioWoman;
+	int mRadioGender;
 	CComboBox mComboBoxCtrl;
 	CListBox mListBoxCtrl;
 	CSpinButtonCtrl mSpinButtonCtrl;
@@ -49,8 +50,8 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonPaint();
 	afx_msg void OnBnClickedButtonApply();
-	afx_msg void OnBnClickedRadioMan();
-	afx_msg void OnBnClickedRadioWoman();
+	/*afx_msg void OnBnClickedRadioMan();
+	afx_msg void OnBnClickedRadioWoman();*/
 	afx_msg void OnBnClickedButtonFile();
 	afx_msg void OnBnClickedButtonDatetime();
 	afx_msg void OnBnClickedButtonImage();
@@ -58,4 +59,6 @@ public:
 	
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg void OnEnUpdateEditSpin();
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	
 };

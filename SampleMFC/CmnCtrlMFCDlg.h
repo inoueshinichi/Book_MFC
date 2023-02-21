@@ -27,7 +27,6 @@ public:
 	CMonthCalCtrl mMonthCalCtrl;
 	COleDateTime mTime;
 	COleDateTime mDate;
-
 	CProgressCtrl mProgressCtrl;
 	CButton mButtonProgressBar;
 	int mTimerID;
@@ -44,5 +43,6 @@ public:
 	afx_msg void OnBnClickedButtonTimer();
 	afx_msg void OnBnClickedButtonSetIp();
 	afx_msg void OnPaint();
+	
 	
 };

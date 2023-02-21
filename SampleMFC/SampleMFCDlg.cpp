@@ -25,8 +25,9 @@ SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
 	, mCheckCpp(FALSE)
 	, mValidParent(false)
 	, mMainFrame(nullptr)
-	, mRadioMan(FALSE)
-	, mRadioWoman(FALSE)
+	//, mRadioMan(FALSE)
+	//, mRadioWoman(FALSE)
+	, mRadioGender(0)
 {
 	if (dynamic_cast<CMainFrame*>(pParent))
 	{
@@ -76,12 +77,13 @@ void SampleMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_VB, mCheckVB);
 	DDX_Check(pDX, IDC_CHECK_CSHARP, mCheckCSharp);
 	DDX_Check(pDX, IDC_CHECK_CPP, mCheckCpp);
-	DDX_Radio(pDX, IDC_RADIO_MAN, mRadioMan);
-	DDX_Radio(pDX, IDC_RADIO_WOMAN, mRadioWoman);
+	//DDX_Radio(pDX, IDC_RADIO_MAN, mRadioMan);
+	//DDX_Radio(pDX, IDC_RADIO_WOMAN, mRadioWoman);
 	DDX_Control(pDX, IDC_COMBO, mComboBoxCtrl);
 	DDX_Control(pDX, IDC_LIST, mListBoxCtrl);
 	DDX_Control(pDX, IDC_SPIN, mSpinButtonCtrl);
 	DDX_Control(pDX, IDC_SLIDER, mSliderCtrl);
+	DDX_Radio(pDX, IDC_RADIO_MAN, mRadioGender);
 }
 
 
@@ -92,13 +94,14 @@ BEGIN_MESSAGE_MAP(SampleMFCDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &SampleMFCDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON_PAINT, &SampleMFCDlg::OnBnClickedButtonPaint)
 	ON_BN_CLICKED(IDC_BUTTON_APPLY, &SampleMFCDlg::OnBnClickedButtonApply)
-	ON_BN_CLICKED(IDC_RADIO_MAN, &SampleMFCDlg::OnBnClickedRadioMan)
-	ON_BN_CLICKED(IDC_RADIO_WOMAN, &SampleMFCDlg::OnBnClickedRadioWoman)
+	//ON_BN_CLICKED(IDC_RADIO_MAN, &SampleMFCDlg::OnBnClickedRadioMan)
+	//ON_BN_CLICKED(IDC_RADIO_WOMAN, &SampleMFCDlg::OnBnClickedRadioWoman)
 	ON_BN_CLICKED(IDC_BUTTON_FILE, &SampleMFCDlg::OnBnClickedButtonFile)
 	ON_BN_CLICKED(IDC_BUTTON_DATETIME, &SampleMFCDlg::OnBnClickedButtonDatetime)
 	ON_BN_CLICKED(IDC_BUTTON_IMAGE, &SampleMFCDlg::OnBnClickedButtonImage)
 	ON_WM_HSCROLL()
 	ON_EN_UPDATE(IDC_EDIT_SPIN, &SampleMFCDlg::OnEnUpdateEditSpin)
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 
@@ -282,7 +285,7 @@ void SampleMFCDlg::OnBnClickedButtonApply()
 	AfxMessageBox(showMessage);
 
 	
-	if (mRadioMan == true && mRadioWoman == false)
+	if (/*mRadioMan == true && mRadioWoman == false*/mRadioGender == 0)
 	{
 		genderStr = _T("男性");
 	}
@@ -320,20 +323,20 @@ void SampleMFCDlg::OnBnClickedButtonApply()
 }
 
 
-void SampleMFCDlg::OnBnClickedRadioMan()
-{
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	mRadioMan = true;
-	mRadioWoman = false;
-}
-
-
-void SampleMFCDlg::OnBnClickedRadioWoman()
-{
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	mRadioMan = false;
-	mRadioWoman = true;
-}
+//void SampleMFCDlg::OnBnClickedRadioMan()
+//{
+//	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+//	mRadioMan = true;
+//	mRadioWoman = false;
+//}
+//
+//
+//void SampleMFCDlg::OnBnClickedRadioWoman()
+//{
+//	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+//	mRadioMan = false;
+//	mRadioWoman = true;
+//}
 
 
 #include <iostream>
@@ -526,4 +529,15 @@ void SampleMFCDlg::OnEnUpdateEditSpin()
 	{
 		mSliderCtrl.SetPos(mSpinButtonCtrl.GetPos());
 	}
+}
+
+
+int SampleMFCDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO: ここに特定な作成コードを追加してください。
+
+	return 0;
 }
