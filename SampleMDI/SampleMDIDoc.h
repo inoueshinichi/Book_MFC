@@ -45,4 +45,7 @@ protected:
 	// 検索ハンドラーの検索コンテンツを設定するヘルパー関数
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	CImage mImage;
+	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 };

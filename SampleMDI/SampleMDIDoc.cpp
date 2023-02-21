@@ -136,3 +136,17 @@ void CSampleMDIDoc::Dump(CDumpContext& dc) const
 
 
 // CSampleMDIDoc コマンド
+
+
+BOOL CSampleMDIDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+	// TODO: ここに特定な作成コードを追加してください。
+
+	// 画像読み込み
+	mImage.Load(lpszPathName);
+
+	return TRUE;
+}

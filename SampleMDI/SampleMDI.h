@@ -9,6 +9,8 @@
 
 #include "resource.h"       // メイン シンボル
 
+#include "Win32Console.h"
+
 
 // CSampleMDIApp:
 // このクラスの実装については、SampleMDI.cpp を参照してください
@@ -18,6 +20,8 @@ class CSampleMDIApp : public CWinAppEx
 {
 public:
 	CSampleMDIApp() noexcept;
+
+	is::common::win32::Win32Console mConsole;
 
 
 // オーバーライド

@@ -145,6 +145,10 @@ BOOL CSampleMDIApp::InitInstance()
 	RegisterShellFileTypes(TRUE);
 
 
+	/*(追加)アプリ起動時に空の子ウィンドウが開かないようにする*/
+	cmdInfo.m_nShellCommand = CCommandLineInfo::FileNothing;
+
+
 	// コマンド ラインで指定されたディスパッチ コマンドです。アプリケーションが
 	// /RegServer、/Register、/Unregserver または /Unregister で起動された場合、False を返します。
 	if (!ProcessShellCommand(cmdInfo))

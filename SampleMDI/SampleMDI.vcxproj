@@ -192,6 +192,9 @@
     <ClInclude Include="SampleMDIDoc.h" />
     <ClInclude Include="SampleMDIView.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Win32APIError.h" />
+    <ClInclude Include="Win32Console.h" />
+    <ClInclude Include="Win32Defs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="SampleMDI.cpp" />
     <ClCompile Include="SampleMDIDoc.cpp" />
     <ClCompile Include="SampleMDIView.cpp" />
+    <ClCompile Include="Win32Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\SampleMDI.rc2" />
