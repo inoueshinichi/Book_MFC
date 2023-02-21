@@ -17,6 +17,7 @@ IMPLEMENT_DYNAMIC(CmnCtrlMFCDlg, CDialogEx)
 CmnCtrlMFCDlg::CmnCtrlMFCDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_CmnCtrlMFCDlg, pParent)
 	, mValidParent(false)
+	, mDeleteThisOnNcDestroy(true)
 	, mMainFrame(nullptr)
 	, mTimerID(0)
 {
@@ -39,7 +40,7 @@ CmnCtrlMFCDlg::CmnCtrlMFCDlg(CWnd* pParent /*=nullptr*/)
 
 CmnCtrlMFCDlg::~CmnCtrlMFCDlg()
 {
-	if (mValidParent)
+	if (mValidParent && !mDeleteThisOnNcDestroy)
 	{
 		mMainFrame->RemoveDialog(this);
 	}
@@ -78,8 +79,8 @@ BOOL CmnCtrlMFCDlg::OnInitDialog()
 	mTime.SetTime(11, 30, 0);
 
 	// プログレスバーの設定
-	mProgressCtrl.SetRange32(0, 100);
-	//mProgressCtrl.SetRange(0, 100);
+	mProgressCtrl.SetRange32(0, 100); // 4bytes
+	//mProgressCtrl.SetRange(0, 100); // 2bytes
 
 	// IPアドレスの設定
 	mIPAddressCtrl.SetAddress((BYTE)192, (BYTE)168, (BYTE)11, (BYTE)20);
@@ -93,7 +94,12 @@ void CmnCtrlMFCDlg::PostNcDestroy()
 	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
 
 	// UI消滅時に所属するオブジェクト(自身)を消す.
-	delete this;
+	if (mValidParent && mDeleteThisOnNcDestroy)
+	{
+		mMainFrame->RemoveDialog(this);
+		delete this;
+	}
+	
 
 	CDialogEx::PostNcDestroy();
 }

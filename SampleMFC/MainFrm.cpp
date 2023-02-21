@@ -72,6 +72,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
+
 	return 0;
 }
 
@@ -128,6 +129,16 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 		pMenu->ModifyMenu(ID_APP_EXIT, MF_BYCOMMAND | MF_STRING, ID_FILE_CLOSE, strTemp);
 	}
 
+	/*SampleMFCDlgの生成*/
+	SampleMFCDlg* mSampleDlg = new SampleMFCDlg(this);
+	mSampleDlg->Create(IDD_SampleMFCDlg);
+	mSampleDlg->ShowWindow(SW_SHOW);
+
+	/*CmnCtrlDlgの生成*/
+	CmnCtrlMFCDlg* mCmnCtrlDlg = new CmnCtrlMFCDlg(this);
+	mCmnCtrlDlg->Create(IDD_CmnCtrlMFCDlg);
+	mCmnCtrlDlg->ShowWindow(SW_SHOW);
+
 	return TRUE;
 }
 
@@ -143,15 +154,7 @@ void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus)
 
 	// TODO: ここにメッセージ ハンドラー コードを追加します。
 
-	/*SampleMFCDlgの生成*/
-	SampleMFCDlg* mSampleDlg = new SampleMFCDlg(this);
-	mSampleDlg->Create(IDD_SampleMFCDlg);
-	mSampleDlg->ShowWindow(SW_SHOW);
-
-	/*CmnCtrlDlgの生成*/
-	CmnCtrlMFCDlg* mCmnCtrlDlg = new CmnCtrlMFCDlg(this);
-	mCmnCtrlDlg->Create(IDD_CmnCtrlMFCDlg);
-	mCmnCtrlDlg->ShowWindow(SW_SHOW);
+	
 }
 
 /*以下, 自作関数*/
@@ -160,10 +163,13 @@ void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus)
 void CMainFrame::AddDialog(class CDialogEx* dlg)
 {
 	mMFCDlgs.push_back(dlg);
+	_tprintf(_T("Add CMainFrame mMFCDlgs size: %d\n"), mMFCDlgs.size());
+
 }
 
 void CMainFrame::RemoveDialog(class CDialogEx* dlg)
 {
+	_tprintf(_T("Remove CMainFrame mMFCDlgs size: %d\n"), mMFCDlgs.size());
 	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
 	if (iter != mMFCDlgs.end())
 	{

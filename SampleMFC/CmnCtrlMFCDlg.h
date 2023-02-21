@@ -21,6 +21,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	bool mDeleteThisOnNcDestroy;
 	bool mValidParent;
 	class CMainFrame* mMainFrame;
 

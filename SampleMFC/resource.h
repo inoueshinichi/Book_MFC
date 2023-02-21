@@ -36,15 +36,15 @@
 #define IDC_SPIN                        1022
 #define IDC_EDIT2                       1023
 #define IDC_EDIT_SPIN                   1023
-#define IDC_PROGRESS1                   1024
+#define IDC_BUTTON_DYNAMIC_MOVE         1025
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        312
+#define _APS_NEXT_RESOURCE_VALUE        314
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1025
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

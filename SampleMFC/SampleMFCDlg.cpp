@@ -24,6 +24,7 @@ SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
 	, mCheckCSharp(FALSE)
 	, mCheckCpp(FALSE)
 	, mValidParent(false)
+	, mDeleteThisOnNcDestroy(true)
 	, mMainFrame(nullptr)
 	//, mRadioMan(FALSE)
 	//, mRadioWoman(FALSE)
@@ -46,7 +47,12 @@ SampleMFCDlg::SampleMFCDlg(CWnd* pParent /*=nullptr*/)
 
 SampleMFCDlg::~SampleMFCDlg()
 {
-	if (mValidParent)
+	while (!mMFCDlgs.empty())
+	{
+		delete mMFCDlgs.back();
+	}
+
+	if (mValidParent && !mDeleteThisOnNcDestroy)
 	{
 		mMainFrame->RemoveDialog(this);
 	}
@@ -58,10 +64,13 @@ SampleMFCDlg::~SampleMFCDlg()
 void SampleMFCDlg::AddDialog(class CDialogEx* dlg)
 {
 	mMFCDlgs.push_back(dlg);
+	_tprintf(_T("Add SampleMFCDlg mMFCDlgs size: %d\n"), mMFCDlgs.size());
+
 }
 
 void SampleMFCDlg::RemoveDialog(class CDialogEx* dlg)
 {
+	_tprintf(_T("Remove SampleMFCDlg mMFCDlgs size: %d\n"), mMFCDlgs.size());
 	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
 	if (iter != mMFCDlgs.end())
 	{
@@ -142,7 +151,11 @@ void SampleMFCDlg::PostNcDestroy()
 	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
 
 	// UI消滅時に所属するオブジェクト(自身)を消す.
-	delete this;
+	if (mValidParent && mDeleteThisOnNcDestroy)
+	{
+		mMainFrame->RemoveDialog(this);
+		delete this;
+	}
 
 	CDialogEx::PostNcDestroy();
 }
