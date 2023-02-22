@@ -76,20 +76,6 @@ void CSampleMDIView::OnDraw(CDC* pDC)
 
 	// TODO: この場所にネイティブ データ用の描画コードを追加します。
 
-	//// ダブルバッファリング用仮想ウィンドウ
-	//CDC memDC;                                                             // 仮想デバイスコンテキスト
-	//CBitmap memBmp;                                                        // 仮想デバイスコンテキスト用ビットマップ
-	//CRect memRect;                                                         // 矩形範囲
-	//CBrush memBrush;                                                       // 背景色
-	//this->GetClientRect(memRect);                                          // 矩形範囲の取得
-	//memDC.CreateCompatibleDC(pDC);                                         // 仮想デバイスコンテキストの生成
-	//memBmp.CreateCompatibleBitmap(pDC, memRect.Width(), memRect.Height()); // 仮想デバイスコンテキスト用ビットマップの生成
-	//memDC.SelectObject(&memBmp);                                           // 仮想デバイスコンテキストにビットマップの割当
-	//memBrush.CreateSolidBrush(WHITE_BRUSH);                                // 背景色の作成
-	//memDC.PatBlt(0, 0, memRect.right, memRect.bottom, PATCOPY);            // 仮想ウィンドウに背景色をセット
-
-	
-
 
 	/////////////////////////////////////////
 	/*           ↓ここから描画処理↓          */
@@ -116,8 +102,8 @@ void CSampleMDIView::OnDraw(CDC* pDC)
 		pDC->BitBlt(0, 0, width, height, &memDC, 0, 0, SRCCOPY);
 
 		//// 破棄
-		::DeleteObject(memDC);
-		::DeleteObject(memBmp);
+		memDC.DeleteDC();
+		memBmp.DeleteObject();
 	}
 
 	//////////////////////////////////////////
