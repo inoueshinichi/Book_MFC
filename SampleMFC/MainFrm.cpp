@@ -44,7 +44,7 @@ CMainFrame::CMainFrame() noexcept
 
 CMainFrame::~CMainFrame()
 {
-	for (auto ptr : mMFCDlgs)
+	for (auto ptr : mEmployeeDlgs)
 	{
 		if (!ptr->IsDeleteThisOnNcDestroy())
 		{
@@ -53,9 +53,9 @@ CMainFrame::~CMainFrame()
 		}
 		else
 		{
-			// PosNcDestroy()で消える子ダイアログには
-			// 親が無効になることを事前通知
-			ptr->SetValidParent(false);
+			// PosNcDestroy()で消える所有される側のダイアログには
+			// 所有者が無効になることを事前通知
+			ptr->SetValidOwner(false);
 		}
 	}
 }
@@ -174,21 +174,21 @@ void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus)
 
 void CMainFrame::AddDialog(BaseMFCDialog* dlg)
 {
-	_tprintf(_T("Add CMainFrame Before mMFCDlgs size: %d\n"), mMFCDlgs.size());
-	mMFCDlgs.push_back(dlg);
-	_tprintf(_T("Add CMainFrame After mMFCDlgs size: %d\n"), mMFCDlgs.size());
+	_tprintf(_T("Add CMainFrame Before mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
+	mEmployeeDlgs.push_back(dlg);
+	_tprintf(_T("Add CMainFrame After mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
 }
 
 void CMainFrame::RemoveDialog(BaseMFCDialog* dlg)
 {
-	_tprintf(_T("Remove CMainFrame Before mMFCDlgs size: %d\n"), mMFCDlgs.size());
-	auto iter = std::find(mMFCDlgs.begin(), mMFCDlgs.end(), dlg);
-	if (iter != mMFCDlgs.end())
+	_tprintf(_T("Remove CMainFrame Before mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
+	auto iter = std::find(mEmployeeDlgs.begin(), mEmployeeDlgs.end(), dlg);
+	if (iter != mEmployeeDlgs.end())
 	{
-		std::iter_swap(iter, mMFCDlgs.end() - 1);
-		mMFCDlgs.pop_back();
+		std::iter_swap(iter, mEmployeeDlgs.end() - 1);
+		mEmployeeDlgs.pop_back();
 	}
-	_tprintf(_T("Remove CMainFrame After mMFCDlgs size: %d\n"), mMFCDlgs.size());
+	_tprintf(_T("Remove CMainFrame After mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
 }
 
 

@@ -12,7 +12,7 @@ class BaseMFCDialog : public CDialogEx
 	DECLARE_DYNAMIC(BaseMFCDialog)
 
 public:
-	BaseMFCDialog(int idd, CWnd* pParent = nullptr);   // 標準コンストラクター
+	BaseMFCDialog(int idd, CWnd* pOwner = nullptr);   // 標準コンストラクター
 	virtual ~BaseMFCDialog();
 
 // ダイアログ データ
@@ -24,9 +24,9 @@ private:
 	
 protected:
 	bool mDeleteThisOnNcDestroy;
-	bool mValidParent;
-	CWnd* mParent;
-	std::vector<BaseMFCDialog*> mChildDlgs;
+	bool mValidOwner;
+	CWnd* mOwner;
+	std::vector<BaseMFCDialog*> mEmployeeDlgs;
 
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
 
@@ -41,9 +41,9 @@ public:
 		return mDeleteThisOnNcDestroy;
 	}
 
-	void SetValidParent(bool flag)
+	void SetValidOwner(bool flag)
 	{
-		mValidParent = flag;
+		mValidOwner = flag;
 	}
 
 	virtual BOOL OnInitDialog();

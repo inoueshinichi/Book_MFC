@@ -17,7 +17,7 @@ protected: // シリアル化からのみ作成します。
 
 // 属性
 public:
-	std::vector<class BaseMFCDialog*> mMFCDlgs;
+	std::vector<class BaseMFCDialog*> mEmployeeDlgs;
 	
 
 // 操作

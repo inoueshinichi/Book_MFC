@@ -15,23 +15,25 @@
 
 IMPLEMENT_DYNAMIC(BaseMFCDialog, CDialogEx)
 
-BaseMFCDialog::BaseMFCDialog(int idd, CWnd* pParent /*=nullptr*/)
-	: CDialogEx(idd, pParent)
+BaseMFCDialog::BaseMFCDialog(int idd, CWnd* pOwner /*=nullptr*/)
+	: CDialogEx(idd, nullptr)
 	, mDeleteThisOnNcDestroy(true)
-	, mValidParent(false)
-	, mParent(pParent)
+	, mValidOwner(false)
+	, mOwner(pOwner)
 {
-	if (dynamic_cast<CMainFrame*>(mParent))
+	if (dynamic_cast<CMainFrame*>(mOwner))
 	{
-		mValidParent = true;
-		CMainFrame* parent = dynamic_cast<CMainFrame*>(mParent);
-		parent->AddDialog(this);
+		mValidOwner = true;
+		CMainFrame* owner = dynamic_cast<CMainFrame*>(mOwner);
+		CWnd::SetOwner(owner);
+		owner->AddDialog(this);
 	}
-	else if (dynamic_cast<BaseMFCDialog*>(mParent))
+	else if (dynamic_cast<BaseMFCDialog*>(mOwner))
 	{
-		mValidParent = true;
-		BaseMFCDialog* parent = dynamic_cast<BaseMFCDialog*>(mParent);
-		parent->AddDialog(this);
+		mValidOwner = true;
+		BaseMFCDialog* owner = dynamic_cast<BaseMFCDialog*>(mOwner);
+		CWnd::SetOwner(owner);
+		owner->AddDialog(this);
 	}
 	else
 	{
@@ -41,8 +43,8 @@ BaseMFCDialog::BaseMFCDialog(int idd, CWnd* pParent /*=nullptr*/)
 
 BaseMFCDialog::~BaseMFCDialog()
 {
-	// 先に子を削除
-	for (auto ptr : mChildDlgs)
+	// 先に雇用側を削除
+	for (auto ptr : mEmployeeDlgs)
 	{
 		// PostNcDestroy()関数で自分自身を消去するオブジェクトは解放しない
 		if (!ptr->IsDeleteThisOnNcDestroy())
@@ -52,22 +54,22 @@ BaseMFCDialog::~BaseMFCDialog()
 		}
 		else
 		{
-			ptr->SetValidParent(false);
+			ptr->SetValidOwner(false);
 		}
 	}
-	mChildDlgs.clear();
+	mEmployeeDlgs.clear();
 
-	// 自身を親から登録解除
-	if (mValidParent)
+	// 自身を所有者から登録解除
+	if (mValidOwner)
 	{
-		if (dynamic_cast<CMainFrame*>(mParent))
+		if (dynamic_cast<CMainFrame*>(mOwner))
 		{
-			CMainFrame* parent = dynamic_cast<CMainFrame*>(mParent);
+			CMainFrame* parent = dynamic_cast<CMainFrame*>(mOwner);
 			parent->RemoveDialog(this);
 		}
-		else if (dynamic_cast<BaseMFCDialog*>(mParent))
+		else if (dynamic_cast<BaseMFCDialog*>(mOwner))
 		{
-			BaseMFCDialog* parent = dynamic_cast<BaseMFCDialog*>(mParent);
+			BaseMFCDialog* parent = dynamic_cast<BaseMFCDialog*>(mOwner);
 			parent->RemoveDialog(this);
 		}
 		
@@ -82,22 +84,22 @@ void BaseMFCDialog::DoDataExchange(CDataExchange* pDX)
 /*自作関数*/
 void BaseMFCDialog::AddDialog(class BaseMFCDialog* dlg)
 {
-	_tprintf(_T("Add BaseMFCDialog Before mChildDlgs size: %d\n"), mChildDlgs.size());
-	mChildDlgs.push_back(dlg);
-	_tprintf(_T("Add BaseMFCDialog After mChildDlgs size: %d\n"), mChildDlgs.size());
+	_tprintf(_T("Add BaseMFCDialog Before mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
+	mEmployeeDlgs.push_back(dlg);
+	_tprintf(_T("Add BaseMFCDialog After mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
 
 }
 
 void BaseMFCDialog::RemoveDialog(class BaseMFCDialog* dlg)
 {
-	_tprintf(_T("Remove BaseMFCDialog Before mChildDlgs size: %d\n"), mChildDlgs.size());
-	auto iter = std::find(mChildDlgs.begin(), mChildDlgs.end(), dlg);
-	if (iter != mChildDlgs.end())
+	_tprintf(_T("Remove BaseMFCDialog Before mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
+	auto iter = std::find(mEmployeeDlgs.begin(), mEmployeeDlgs.end(), dlg);
+	if (iter != mEmployeeDlgs.end())
 	{
-		std::iter_swap(iter, mChildDlgs.end() - 1);
-		mChildDlgs.pop_back();
+		std::iter_swap(iter, mEmployeeDlgs.end() - 1);
+		mEmployeeDlgs.pop_back();
 	}
-	_tprintf(_T("Remove BaseMFCDialog After mChildDlgs size: %d\n"), mChildDlgs.size());
+	_tprintf(_T("Remove BaseMFCDialog After mEmployeeDlgs size: %d\n"), mEmployeeDlgs.size());
 }
 
 
