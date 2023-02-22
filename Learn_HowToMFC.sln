@@ -15,35 +15,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MFC_Class_Hierarchy_3.png = MFC_Class_Hierarchy_3.png
 		README.md = README.md
 		Tips_CScrollView.md = Tips_CScrollView.md
+		Tips_CWnd.md = Tips_CWnd.md
+		Tips_MFCFramework.md = Tips_MFCFramework.md
 		Tips_MFCView.md = Tips_MFCView.md
+		Tips_WorkerThread.md = Tips_WorkerThread.md
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleMDI", "SampleMDI\SampleMDI.vcxproj", "{D427DB30-F458-42CF-8F69-22CA2E38BEDD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleThread", "SampleThread\SampleThread.vcxproj", "{DBB08EFE-B2B2-45A7-AEA0-A7A7CD53AC1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Debug|x64.ActiveCfg = Debug|x64
 		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Debug|x64.Build.0 = Debug|x64
-		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Debug|x86.ActiveCfg = Debug|Win32
-		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Debug|x86.Build.0 = Debug|Win32
 		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Release|x64.ActiveCfg = Release|x64
 		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Release|x64.Build.0 = Release|x64
-		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Release|x86.ActiveCfg = Release|Win32
-		{0E6059AF-3F6E-49B5-BEE3-CAA3C202C169}.Release|x86.Build.0 = Release|Win32
 		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Debug|x64.ActiveCfg = Debug|x64
 		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Debug|x64.Build.0 = Debug|x64
-		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Debug|x86.ActiveCfg = Debug|Win32
-		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Debug|x86.Build.0 = Debug|Win32
 		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Release|x64.ActiveCfg = Release|x64
 		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Release|x64.Build.0 = Release|x64
-		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Release|x86.ActiveCfg = Release|Win32
-		{D427DB30-F458-42CF-8F69-22CA2E38BEDD}.Release|x86.Build.0 = Release|Win32
+		{DBB08EFE-B2B2-45A7-AEA0-A7A7CD53AC1D}.Debug|x64.ActiveCfg = Debug|x64
+		{DBB08EFE-B2B2-45A7-AEA0-A7A7CD53AC1D}.Debug|x64.Build.0 = Debug|x64
+		{DBB08EFE-B2B2-45A7-AEA0-A7A7CD53AC1D}.Release|x64.ActiveCfg = Release|x64
+		{DBB08EFE-B2B2-45A7-AEA0-A7A7CD53AC1D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
