@@ -59,9 +59,9 @@ DWORD WaitForSingleObject(HANDLE, DWORD);
 | WAIT_TIMEOUT | タイムアウト時間が経過した(スレッドの状態わからない) |
 
 ### AfxBeginThread関数を使用する際の注意点
-+ 生成される(戻り値)CWinThreadクラスのインスタンスは, スレッド終了時に自動的に破棄されるので, それに伴い, スレッドハンドル(HANDLE)も消えてしまう.
-+ スレッド状態を定期的に調べる(Peek)する方式の際は, WaitForSingleObject()で無効ハンドルを受け取ってアプリが異常終了してしまう.
-+ ハンドルを自動削除させないようにするために, スレッドを待機状態(CREATE_SUSPEND)で起動させ, `CWinThreadインスタンス.m_bAutoDelete = false;`と設定する._
-+ CWinThreadインスタンス(及びスレッドハンドル)を自動削除させない場合, インスタンスの削除をプログラマー側で明記する.
++ 生成される(戻り値)CWinThreadクラスのインスタンスは, スレッド終了時に自動的に破棄されるので, それに伴ってスレッドハンドル(HANDLE)も消えてしまう.
++ 自動でハンドルが消える方式では, スレッド状態を定期的に調べる(Peek)する方式の際, WaitForSingleObject()で無効ハンドルを受け取ってアプリが異常終了してしまう.
++ ハンドルを自動削除させないようにするために, スレッドを待機状態(CREATE_SUSPEND)で起動させて`CWinThreadインスタンス.m_bAutoDelete = false;`と設定する.
++ CWinThreadインスタンス(及びスレッドハンドル)を自動削除させない場合, CWinThreadインスタンスの破棄をプログラマー側で明記する.
 + スレッドのサスペンドを解除する方法`DWORD suspendCount = CWinThreadインスタンス.ResumeThread();` 
 + CWinThread(スレッド)はサスペンドカウントというカウンターを持っている. 0で起動, +1で待機. ResumeThread()は-1する関数.
