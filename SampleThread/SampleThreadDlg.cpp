@@ -8,6 +8,8 @@
 #include "SampleThreadDlg.h"
 #include "afxdialogex.h"
 
+#include "WaitThreadDlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -50,21 +52,32 @@ END_MESSAGE_MAP()
 
 
 
-CSampleThreadDlg::CSampleThreadDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_SAMPLETHREAD_DIALOG, pParent)
+CSampleThreadDlg::CSampleThreadDlg(CWnd* /*pParent*/pOwner /*=nullptr*/)
+	: BaseMFCDialog(IDD_SAMPLETHREAD_DIALOG, /*pParent*/pOwner)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CSampleThreadDlg::DoDataExchange(CDataExchange* pDX)
+CSampleThreadDlg::~CSampleThreadDlg()
 {
-	CDialogEx::DoDataExchange(pDX);
+	_tprintf(_T("Dest CSampleThreadDlg\n"));
 }
 
-BEGIN_MESSAGE_MAP(CSampleThreadDlg, CDialogEx)
+void CSampleThreadDlg::DoDataExchange(CDataExchange* pDX)
+{
+	BaseMFCDialog::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(CSampleThreadDlg, BaseMFCDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_WAIT_THREAD, &CSampleThreadDlg::OnBnClickedButtonWaitThread)
+	ON_BN_CLICKED(IDC_BUTTON_PEEK_THREAD, &CSampleThreadDlg::OnBnClickedButtonPeekThread)
+	ON_BN_CLICKED(IDC_BUTTON_SEMAPHORE, &CSampleThreadDlg::OnBnClickedButtonSemaphore)
+	ON_BN_CLICKED(IDC_BUTTON_MUTEX, &CSampleThreadDlg::OnBnClickedButtonMutex)
+	ON_BN_CLICKED(IDC_BUTTON_CRITICAL_SECTION, &CSampleThreadDlg::OnBnClickedButtonCriticalSection)
+	ON_BN_CLICKED(IDC_BUTTON_EVENT, &CSampleThreadDlg::OnBnClickedButtonEvent)
 END_MESSAGE_MAP()
 
 
@@ -72,7 +85,7 @@ END_MESSAGE_MAP()
 
 BOOL CSampleThreadDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	BaseMFCDialog::OnInitDialog();
 
 	// "バージョン情報..." メニューをシステム メニューに追加します。
 
@@ -113,7 +126,7 @@ void CSampleThreadDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	}
 	else
 	{
-		CDialogEx::OnSysCommand(nID, lParam);
+		BaseMFCDialog::OnSysCommand(nID, lParam);
 	}
 }
 
@@ -142,7 +155,7 @@ void CSampleThreadDlg::OnPaint()
 	}
 	else
 	{
-		CDialogEx::OnPaint();
+		BaseMFCDialog::OnPaint();
 	}
 }
 
@@ -153,3 +166,43 @@ HCURSOR CSampleThreadDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CSampleThreadDlg::OnBnClickedButtonWaitThread()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
+	WaitThreadDlg* waitThreadDlg = new WaitThreadDlg(this);
+	waitThreadDlg->Create(IDD_WaitThreadDlg);
+	waitThreadDlg->ShowWindow(SW_SHOW);
+}
+
+
+void CSampleThreadDlg::OnBnClickedButtonPeekThread()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+
+void CSampleThreadDlg::OnBnClickedButtonSemaphore()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+
+void CSampleThreadDlg::OnBnClickedButtonMutex()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+
+void CSampleThreadDlg::OnBnClickedButtonCriticalSection()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+
+void CSampleThreadDlg::OnBnClickedButtonEvent()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}

@@ -191,14 +191,20 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMFCDialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SampleThread.h" />
     <ClInclude Include="SampleThreadDlg.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WaitThreadDlg.h" />
+    <ClInclude Include="Win32APIError.h" />
+    <ClInclude Include="Win32Console.h" />
+    <ClInclude Include="Win32Defs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseMFCDialog.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -207,6 +213,8 @@
     </ClCompile>
     <ClCompile Include="SampleThread.cpp" />
     <ClCompile Include="SampleThreadDlg.cpp" />
+    <ClCompile Include="WaitThreadDlg.cpp" />
+    <ClCompile Include="Win32Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SampleThread.rc" />

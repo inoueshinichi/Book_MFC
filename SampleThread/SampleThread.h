@@ -10,6 +10,8 @@
 
 #include "resource.h"		// メイン シンボル
 
+#include "Win32Console.h"
+
 
 // CSampleThreadApp:
 // このクラスの実装については、SampleThread.cpp を参照してください

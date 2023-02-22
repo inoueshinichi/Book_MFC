@@ -72,6 +72,7 @@ BOOL CSampleThreadApp::InitInstance()
 	SetRegistryKey(_T("アプリケーション ウィザードで生成されたローカル アプリケーション"));
 
 	CSampleThreadDlg dlg;
+	dlg.SetDeleteThisOnNcDestroy(false); // 画面削除時に自身を消さない
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
