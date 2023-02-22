@@ -64,13 +64,13 @@ BaseMFCDialog::~BaseMFCDialog()
 	{
 		if (dynamic_cast<CMainFrame*>(mOwner))
 		{
-			CMainFrame* parent = dynamic_cast<CMainFrame*>(mOwner);
-			parent->RemoveDialog(this);
+			CMainFrame* owner = dynamic_cast<CMainFrame*>(mOwner);
+			owner->RemoveDialog(this);
 		}
 		else if (dynamic_cast<BaseMFCDialog*>(mOwner))
 		{
-			BaseMFCDialog* parent = dynamic_cast<BaseMFCDialog*>(mOwner);
-			parent->RemoveDialog(this);
+			BaseMFCDialog* owner = dynamic_cast<BaseMFCDialog*>(mOwner);
+			owner->RemoveDialog(this);
 		}
 		
 	}
