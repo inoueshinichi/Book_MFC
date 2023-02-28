@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "BaseMFCDialog.h"
 
 
@@ -11,14 +11,14 @@ public:
 	virtual ~WaitThreadDlg();
 
 	
-	// ƒ_ƒCƒAƒƒO ƒf[ƒ^
+	// ãƒ€ã‚¤ã‚¢ãƒ­ã‚° ãƒ‡ãƒ¼ã‚¿
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_WaitThreadDlg
 	};
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV ƒTƒ|[ƒg
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV ã‚µãƒãƒ¼ãƒˆ
 
 public:
 	CString mFileName;
@@ -33,7 +33,7 @@ public:
 	CWinThread* mThread;
 
 private:
-	/*ƒXƒŒƒbƒh—L‚è–³‚µ*/
+	/*ã‚¹ãƒ¬ãƒƒãƒ‰æœ‰ã‚Šç„¡ã—*/
 	void NoThreadPattern(); 
 	void ThreadPattern_NoWait();
 	void ThreadPattern_Wait();
@@ -45,5 +45,6 @@ public:
 	afx_msg void OnBnClickedButtonWaitthreaddlgStop();
 	afx_msg void OnBnClickedButtonWaitthreaddlgStart();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnBnClickedButtonSemaphore();
 };
 

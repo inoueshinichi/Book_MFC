@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 
 #include "SampleThread.h"
 
@@ -44,13 +44,14 @@ BEGIN_MESSAGE_MAP(WaitThreadDlg, BaseMFCDialog)
 	ON_BN_CLICKED(IDC_BUTTON_WaitThreadDlg_Stop, &WaitThreadDlg::OnBnClickedButtonWaitthreaddlgStop)
 	ON_BN_CLICKED(IDC_BUTTON_WaitThreadDlg_Start, &WaitThreadDlg::OnBnClickedButtonWaitthreaddlgStart)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BUTTON_SEMAPHORE, &WaitThreadDlg::OnBnClickedButtonSemaphore)
 END_MESSAGE_MAP()
 
 void WaitThreadDlg::OnBnClickedButtonWaitthreaddlgFile()
 {
-	// TODO: ‚±‚±‚ÉƒRƒ“ƒgƒ[ƒ‹’Ê’mƒnƒ“ƒhƒ‰[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B
+	// TODO: ã“ã“ã«ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«é€šçŸ¥ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚
 
-	CString filter = _T("‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹(*.*)|*.*|");
+	CString filter = _T("ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«(*.*)|*.*|");
 	CFileDialog fileDialog(true, nullptr, nullptr, OFN_HIDEREADONLY, filter);
 	if (fileDialog.DoModal() == IDOK)
 	{
@@ -62,7 +63,7 @@ void WaitThreadDlg::OnBnClickedButtonWaitthreaddlgFile()
 
 void WaitThreadDlg::OnBnClickedButtonWaitthreaddlgStop()
 {
-	// TODO: ‚±‚±‚ÉƒRƒ“ƒgƒ[ƒ‹’Ê’mƒnƒ“ƒhƒ‰[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B
+	// TODO: ã“ã“ã«ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«é€šçŸ¥ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚
 	mRunningThread = false;
 }
 
@@ -112,7 +113,7 @@ static UINT ThreadReadFile_ver1_with_gui_process(LPVOID pParam)
 		for (int i = 0; i < count; ++i)
 		{
 			readFile.Read(buffer, sizeof(buffer));
-			dlg->mProgressCtrl.SetPos(i + 1); // ƒfƒbƒhƒƒbƒN‚ÌŒ´ˆö‚É‚È‚é
+			dlg->mProgressCtrl.SetPos(i + 1); // ãƒ‡ãƒƒãƒ‰ãƒ­ãƒƒã‚¯ã®åŸå› ã«ãªã‚‹
 			_tprintf(_T("Read bytes : %d\n"), (i + 1) * sizeof(buffer));
 
 			if (dlg->mRunningThread)
@@ -142,7 +143,7 @@ static UINT ThreadReadFile_ver2_without_gui_process(LPVOID pParam)
 		for (int i = 0; i < count; ++i)
 		{
 			readFile.Read(buffer, sizeof(buffer));
-			//dlg->mProgressCtrl.SetPos(i + 1); // ƒfƒbƒhƒƒbƒN‚ÌŒ´ˆö‚É‚È‚é
+			//dlg->mProgressCtrl.SetPos(i + 1); // ãƒ‡ãƒƒãƒ‰ãƒ­ãƒƒã‚¯ã®åŸå› ã«ãªã‚‹
 			dlg->mCount = i + 1;
 			_tprintf(_T("Read bytes : %d\n"), (i + 1) * sizeof(buffer));
 
@@ -193,7 +194,7 @@ void WaitThreadDlg::ThreadPattern_Wait()
 		mButtonStart.EnableWindow(true);
 		mButtonStop.EnableWindow(false);
 
-		// ƒƒCƒ“ƒXƒŒƒbƒh‘¤‚Å‘Ò‹@
+		// ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰å´ã§å¾…æ©Ÿ
 		WaitForSingleObject(thread->m_hThread, INFINITE);
 		_tprintf(_T("Pass WaitForSingleObject in main therad.\n"));
 	}
@@ -222,13 +223,13 @@ void WaitThreadDlg::ThreadPattern_Peek()
 
 		_tprintf(_T("Suspend thread.\n"));
 
-		mThread->m_bAutoDelete = false; // ©“®”jŠü‚³‚ê‚È‚¢‚æ‚¤‚É
+		mThread->m_bAutoDelete = false; // è‡ªå‹•ç ´æ£„ã•ã‚Œãªã„ã‚ˆã†ã«
 		mThread->ResumeThread();
 
 		_tprintf(_T("Restart thread.\n"));
 
 		mTimerID = 1;
-		CWnd::SetTimer(mTimerID, 50/*[ms]*/, NULL); // WaitThreadDlgˆ¶‚Ä‘—M‚³‚ê‚éƒ^ƒCƒ€ƒAƒEƒgƒƒbƒZ[ƒW‚ğOnTimer()ƒnƒ“ƒhƒ‰‚Åæ“¾‚·‚é
+		CWnd::SetTimer(mTimerID, 50/*[ms]*/, NULL); // WaitThreadDlgå®›ã¦é€ä¿¡ã•ã‚Œã‚‹ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’OnTimer()ãƒãƒ³ãƒ‰ãƒ©ã§å–å¾—ã™ã‚‹
 		_tprintf(_T("Set peek timer for thread.\n"));
 	}
 }
@@ -236,7 +237,7 @@ void WaitThreadDlg::ThreadPattern_Peek()
 
 void WaitThreadDlg::OnBnClickedButtonWaitthreaddlgStart()
 {
-	// TODO: ‚±‚±‚ÉƒRƒ“ƒgƒ[ƒ‹’Ê’mƒnƒ“ƒhƒ‰[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B
+	// TODO: ã“ã“ã«ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«é€šçŸ¥ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚
 
 	CWnd::UpdateData(true);
 	if (mPeekThread)
@@ -254,9 +255,9 @@ void WaitThreadDlg::OnBnClickedButtonWaitthreaddlgStart()
 
 void WaitThreadDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO: ‚±‚±‚ÉƒƒbƒZ[ƒW ƒnƒ“ƒhƒ‰[ ƒR[ƒh‚ğ’Ç‰Á‚·‚é‚©AŠù’è‚Ìˆ—‚ğŒÄ‚Ño‚µ‚Ü‚·B
+	// TODO: ã“ã“ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã™ã‚‹ã‹ã€æ—¢å®šã®å‡¦ç†ã‚’å‘¼ã³å‡ºã—ã¾ã™ã€‚
 
-	DWORD result = WaitForSingleObject(mThread->m_hThread, 0); // ˆêu”`‚«Œ©‚é(Peek)
+	DWORD result = WaitForSingleObject(mThread->m_hThread, 0); // ä¸€ç¬è¦—ãè¦‹ã‚‹(Peek)
 	_tprintf(_T("Peek thread in OnTimer!\n"));
 	mProgressCtrl.SetPos(mCount);
 	if (result == WAIT_ABANDONED || result == WAIT_OBJECT_0)
@@ -270,4 +271,11 @@ void WaitThreadDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	BaseMFCDialog::OnTimer(nIDEvent);
+}
+
+
+void WaitThreadDlg::OnBnClickedButtonSemaphore()
+{
+	// TODO: ã“ã“ã«ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«é€šçŸ¥ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚
+
 }
